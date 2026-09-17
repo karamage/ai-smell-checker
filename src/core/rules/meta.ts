@@ -67,6 +67,12 @@ export const RULES: Record<RuleId, RuleMeta> = {
 		checklist: "文の長短にメリハリがあるか（文長・文末・文頭・段落の均質さ）",
 		color: "#ff8ae2",
 	},
+	R11: {
+		id: "R11",
+		name: "AI 構文",
+		checklist: "「Aではなく、Bである」「Aであり、Bであり」「Aすることで、Bできる」型の構文がないか",
+		color: "#ff9a9a",
+	},
 };
 
 export const RULE_IDS: RuleId[] = [
@@ -81,6 +87,7 @@ export const RULE_IDS: RuleId[] = [
 	"R8",
 	"R9",
 	"R10",
+	"R11",
 ];
 
 /** 文書全体を見るルール。短い文書では評価しない */

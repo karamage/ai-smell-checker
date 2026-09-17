@@ -30,7 +30,6 @@ export const COLLOQUIAL: { label: string; re: RegExp }[] = [
 	{ label: "かなと", re: /かなと/ },
 	{ label: "気がします", re: /気がします|気がする/ },
 	{ label: "ある意味", re: /ある意味/ },
-	{ label: "要するに", re: /要するに/ },
 	{ label: "ぶっちゃけると", re: /ぶっちゃけると/ },
 	{ label: "ハマった", re: /ハマ(った|って)/ },
 	{ label: "しんどい", re: /しんど(い|かった)/ },

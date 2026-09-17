@@ -53,7 +53,7 @@ export const BANNED: BannedEntry[] = [
 	},
 	{ pattern: /(見て|みて)いきましょう/, severity: H, hint: "内容を運ばない橋渡し語。削る" },
 	{
-		pattern: /(紹介|解説|深掘り|説明)していきます/,
+		pattern: /(?<!について)(?:紹介|解説|深掘り|説明)していきます/,
 		severity: H,
 		hint: "「していきます」の予告口調。書く内容そのものから始める",
 	},
@@ -181,5 +181,57 @@ export const BANNED: BannedEntry[] = [
 		pattern: /気づき|気付き/,
 		severity: M,
 		hint: "「気づき」でまとめず、気づいた内容そのものを書く",
+	},
+	// 追加分（2026-09-17 指定）: 語彙
+	{ pattern: "要するに", severity: M, hint: "要約の前置き。要約した中身だけ書く" },
+	{
+		pattern: /本質的に|根源的に/,
+		severity: M,
+		hint: "何がどう本質なのかを書かずに深さを装う語。具体で言い換える",
+	},
+	{
+		pattern: /問い(?!合わせ|合せ)/,
+		severity: L,
+		hint: "「問い」と名詞化せず、何を疑問に思ったのかを文で書く",
+	},
+	{ pattern: "文脈", severity: L, hint: "「文脈」は状況を指す便利語。何の話の流れかを書く" },
+	{
+		pattern: /(?<!データ|木|階層|ディレクトリ|フォルダ)構造(?!体|化|物)/,
+		severity: L,
+		hint: "「構造」で抽象化せず、何と何がどう繋がっているかを書く",
+	},
+	{ pattern: "視座", severity: M, hint: "「視座」は硬い。「立場」「見方」で足りる" },
+	{
+		pattern: "余白",
+		severity: L,
+		hint: "比喩としての「余白」は AI 好み。何を決めていないのかを書く",
+	},
+	{
+		pattern: "というものです",
+		severity: M,
+		hint: "「〜というものです」の説明口調。「〜です」に削る",
+	},
+	{
+		pattern: /(?<!紹介|解説|深掘り|説明)していきます/,
+		severity: M,
+		hint: "「〜していきます」の予告口調。今していることを書く",
+	},
+	{
+		pattern: /読者の(皆さん|皆様|みなさん|みなさま)/,
+		severity: H,
+		hint: "読者に呼びかけない。伝えたいことを直接書く",
+	},
+	{ pattern: "羅針盤", severity: H, hint: "AI 好みの比喩。何を決める基準なのかを書く" },
+	{ pattern: "受け皿", severity: M, hint: "比喩をやめて、何がどこに入るのかを書く" },
+	{
+		pattern: /種を(まく|蒔く|撒く)/,
+		severity: H,
+		hint: "「種をまく」は空虚な比喩。実際にやったことを書く",
+	},
+	{ pattern: "出血", severity: M, hint: "損失の比喩。金額や件数で書く" },
+	{
+		pattern: /解像度(を上げ|が上が|を高め|が高ま)/,
+		severity: H,
+		hint: "「解像度を上げる」は流行りの空語。何が分かるようになったかを書く",
 	},
 ];

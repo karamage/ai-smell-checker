@@ -63,11 +63,32 @@ describe("share code", () => {
 	test("往復できる", () => {
 		const r = analyze(SAMPLE_AI);
 		const code = encodeShare(r);
-		expect(code.length).toBeLessThanOrEqual(8);
+		expect(code.length).toBe(8);
 		const d = decodeShare(code);
 		expect(d?.score).toBe(r.score);
 		expect(d?.count).toBe(Math.min(255, r.findings.length));
 		expect(d?.rules).toEqual(RULE_IDS.filter((id) => r.counts[id] > 0));
+	});
+	test("v2 の共有コード（5 byte・マスク 11bit）も読める", () => {
+		// version=2, score=100, mask=R0,R10, count=42
+		let bits = 2n;
+		bits = (bits << 7n) | 100n;
+		bits = (bits << 11n) | 0b10000000001n;
+		bits = (bits << 8n) | 42n;
+		const bytes = new Uint8Array(5);
+		for (let i = 3; i >= 0; i--) {
+			bytes[i] = Number(bits & 0xffn);
+			bits >>= 8n;
+		}
+		bytes[4] = (bytes[0] ?? 0) ^ (bytes[1] ?? 0) ^ (bytes[2] ?? 0) ^ (bytes[3] ?? 0) ^ 0x5a;
+		const code = btoa(String.fromCharCode(...bytes))
+			.replace(/\+/g, "-")
+			.replace(/\//g, "_")
+			.replace(/=+$/, "");
+		const d = decodeShare(code);
+		expect(d?.score).toBe(100);
+		expect(d?.count).toBe(42);
+		expect(d?.rules).toEqual(["R0", "R10"]);
 	});
 	test("v1 の共有コード（マスク 10bit）も読める", () => {
 		// version=1, score=95, mask=0b0000111111 (R0〜R5), count=31
