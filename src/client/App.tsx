@@ -1,9 +1,10 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { analyze, type RuleId } from "../core/index.ts";
 import { SAMPLE_AI, SAMPLE_HUMAN } from "../core/samples.ts";
 import { Checklist } from "./components/Checklist.tsx";
 import { Editor } from "./components/Editor.tsx";
 import { Findings } from "./components/Findings.tsx";
+import { Hazard } from "./components/Hazard.tsx";
 import { Meter } from "./components/Meter.tsx";
 import { PromptPanel } from "./components/PromptPanel.tsx";
 import { ShareBar } from "./components/ShareBar.tsx";
@@ -20,6 +21,16 @@ export function App() {
 	const report = useMemo(() => analyze(debounced), [debounced]);
 	const intensity = report.tooShort ? 0.04 : 0.08 + (report.score / 100) * 0.92;
 
+	// 100 点に到達した瞬間だけ警報演出を出す（描画中に前回値と比べる派生 state）
+	const [hazard, setHazard] = useState(false);
+	const shown = report.tooShort ? 0 : report.score;
+	const [prevShown, setPrevShown] = useState(shown);
+	if (shown !== prevShown) {
+		setPrevShown(shown);
+		if (shown === 100) setHazard(true);
+	}
+	const endHazard = useCallback(() => setHazard(false), []);
+
 	const pick = (i: number | null) => {
 		setActive(i);
 	};
@@ -33,8 +44,9 @@ export function App() {
 	return (
 		<>
 			<SmokeCanvas intensity={intensity} color={report.tooShort ? "#7c3aed" : report.level.color} />
+			<Hazard active={hazard} onDone={endHazard} />
 			<div
-				className="page"
+				className={`page${hazard ? " page-shake" : ""}`}
 				style={
 					{ "--level": report.tooShort ? "#7c3aed" : report.level.color } as React.CSSProperties
 				}

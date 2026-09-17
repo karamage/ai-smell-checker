@@ -10,7 +10,10 @@ export function Meter({ report }: { report: Report }) {
 	const lv = report.level;
 	const color = report.tooShort ? "#4a4f6e" : lv.color;
 	return (
-		<div className="meter" style={{ "--level": color } as React.CSSProperties}>
+		<div
+			className={`meter${!report.tooShort && report.score === 100 ? " meter-max" : ""}`}
+			style={{ "--level": color } as React.CSSProperties}
+		>
 			<svg
 				viewBox="0 0 200 118"
 				className="meter-svg"
