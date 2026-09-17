@@ -16,6 +16,7 @@ export const WEIGHTS: Record<RuleId, Weight> = {
 	R7: { per: 8, cap: 8 },
 	R8: { per: 3, cap: 9 },
 	R9: { per: 5, cap: 10 },
+	R10: { per: { high: 10, mid: 6, low: 3 }, cap: 16 },
 };
 
 export const LEVELS: LevelInfo[] = [

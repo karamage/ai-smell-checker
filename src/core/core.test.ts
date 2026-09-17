@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { analyze, decodeShare, encodeShare, levelOf, scoreOf } from "./index.ts";
+import { analyze, decodeShare, encodeShare, levelOf, RULE_IDS, scoreOf } from "./index.ts";
 import { SAMPLE_AI, SAMPLE_HUMAN } from "./samples.ts";
 
 describe("scoreOf / levelOf", () => {
@@ -40,7 +40,7 @@ describe("analyze", () => {
 		const r = analyze("短い。");
 		expect(r.tooShort).toBe(true);
 		expect(r.score).toBe(0);
-		expect(r.skipped).toEqual(["R4", "R6", "R7"]);
+		expect(r.skipped).toEqual(["R4", "R6", "R7", "R10"]);
 	});
 	test("指摘はオフセット順に並び、範囲なしは末尾", () => {
 		const r = analyze(SAMPLE_AI);
@@ -67,9 +67,28 @@ describe("share code", () => {
 		const d = decodeShare(code);
 		expect(d?.score).toBe(r.score);
 		expect(d?.count).toBe(Math.min(255, r.findings.length));
-		expect(d?.rules).toEqual(
-			r.findings.length ? [...new Set(r.findings.map((f) => f.ruleId))].toSorted() : [],
-		);
+		expect(d?.rules).toEqual(RULE_IDS.filter((id) => r.counts[id] > 0));
+	});
+	test("v1 の共有コード（マスク 10bit）も読める", () => {
+		// version=1, score=95, mask=0b0000111111 (R0〜R5), count=31
+		let bits = 1n;
+		bits = (bits << 7n) | 95n;
+		bits = (bits << 10n) | 0b0000111111n;
+		bits = (bits << 8n) | 31n;
+		const bytes = new Uint8Array(5);
+		for (let i = 3; i >= 0; i--) {
+			bytes[i] = Number(bits & 0xffn);
+			bits >>= 8n;
+		}
+		bytes[4] = (bytes[0] ?? 0) ^ (bytes[1] ?? 0) ^ (bytes[2] ?? 0) ^ (bytes[3] ?? 0) ^ 0x5a;
+		const code = btoa(String.fromCharCode(...bytes))
+			.replace(/\+/g, "-")
+			.replace(/\//g, "_")
+			.replace(/=+$/, "");
+		const d = decodeShare(code);
+		expect(d?.score).toBe(95);
+		expect(d?.count).toBe(31);
+		expect(d?.rules).toEqual(["R0", "R1", "R2", "R3", "R4", "R5"]);
 	});
 	test("壊れたコードは null", () => {
 		expect(decodeShare("zzz")).toBeNull();

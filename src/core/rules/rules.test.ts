@@ -160,3 +160,41 @@ describe("R9 見出し直後", () => {
 		expect(run("R9", "導入の背景\n\n本節では背景を説明します。")).toHaveLength(1);
 	});
 });
+
+describe("R10 リズム", () => {
+	const flat = Array.from(
+		{ length: 8 },
+		(_, i) => `これは${i}番目の文で長さがほぼ同じになっている。`,
+	).join("");
+	test("文長がほぼ一定なら重い指摘", () => {
+		const f = run("R10", flat);
+		expect(f.some((x) => x.severity === "high" && x.message.includes("ほぼ一定"))).toBe(true);
+	});
+	test("長短が混ざっていれば文長の指摘は出ない", () => {
+		const text =
+			"短い。ここは長めの文にして、読点も入れながら、ひとつの段落の中で文の長さを大きく変えてみる必要がある。うん。それで良い。次はまた少し長い文を置いて、リズムを崩す。終わり。";
+		expect(run("R10", text).filter((x) => x.range === null)).toHaveLength(0);
+	});
+	test("同じ型の文末が 5 連続で指摘（です・ます以外）", () => {
+		const text =
+			"短い。長めの文をここに置いた。走った。見た。食べた。寝た。とても長い文をもう一つ置いてリズムを作っておく。";
+		const f = run("R10", text).filter((x) => x.message.includes("連続"));
+		expect(f).toHaveLength(1);
+		expect(f[0]?.message).toContain("「〜た」");
+	});
+	test("た形が 4 連続までなら指摘しない", () => {
+		const text =
+			"短い。長めの文をここに置いた。走った。見た。食べた。とても長い文をもう一つ置いてリズムを作っておく。";
+		expect(run("R10", text).filter((x) => x.message.includes("連続"))).toHaveLength(0);
+	});
+	test("同じ文頭が 5 回で指摘", () => {
+		const text =
+			"また来た。また今日も長い文を書いてしまって反省している。また。また明日にしよう。また来週も来るつもりだ。ここで少し長めの文を置いてリズムを作っておく。";
+		const f = run("R10", text).filter((x) => x.message.includes("で始まる文"));
+		expect(f).toHaveLength(1);
+		expect(f[0]?.message).toContain("「また」");
+	});
+	test("文が 5 つ以下なら評価しない", () => {
+		expect(run("R10", "同じ。同じ。同じ。同じ。同じ。")).toHaveLength(0);
+	});
+});

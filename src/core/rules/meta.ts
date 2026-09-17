@@ -61,12 +61,30 @@ export const RULES: Record<RuleId, RuleMeta> = {
 		checklist: "見出し直後が「説明」ではなく「結論」か「具体例」か",
 		color: "#c77dff",
 	},
+	R10: {
+		id: "R10",
+		name: "リズムが単調",
+		checklist: "文の長短にメリハリがあるか（文長・文末・文頭・段落の均質さ）",
+		color: "#ff8ae2",
+	},
 };
 
-export const RULE_IDS: RuleId[] = ["R0", "R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9"];
+export const RULE_IDS: RuleId[] = [
+	"R0",
+	"R1",
+	"R2",
+	"R3",
+	"R4",
+	"R5",
+	"R6",
+	"R7",
+	"R8",
+	"R9",
+	"R10",
+];
 
 /** 文書全体を見るルール。短い文書では評価しない */
-export const DOCUMENT_RULES: RuleId[] = ["R4", "R6", "R7"];
+export const DOCUMENT_RULES: RuleId[] = ["R4", "R6", "R7", "R10"];
 
 /** これ未満の文字数では文書全体ルールを評価しない */
 export const DOCUMENT_RULE_MIN_LENGTH = 400;
