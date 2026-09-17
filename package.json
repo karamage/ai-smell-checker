@@ -6,7 +6,6 @@
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
-		"dev:ai": "NIOU_REMOTE_AI=1 vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
 		"deploy": "vite build && wrangler deploy",

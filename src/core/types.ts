@@ -80,18 +80,3 @@ export interface RuleContext {
 }
 
 export type Rule = (ctx: RuleContext) => Finding[];
-
-/** Workers AI 二次審査の結果。Worker とクライアントで共有する API 契約 */
-export interface SniffResult {
-	/** AI が書いた確率 0〜100 */
-	probability: number;
-	/** 一言講評 */
-	verdict: string;
-	/** 失敗・迷い・未解決の話があるか（R6 の意味判定） */
-	failureStory: { found: boolean; quote: string };
-	/** 見出し直後が結論・具体例になっているか（R9 の意味判定） */
-	headingLeads: { heading: string; ok: boolean; reason: string }[];
-	/** 言い換え案 */
-	rewrites: { before: string; after: string; why: string }[];
-	model: string;
-}

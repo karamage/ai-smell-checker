@@ -7,7 +7,6 @@ import { Findings } from "./components/Findings.tsx";
 import { Meter } from "./components/Meter.tsx";
 import { ShareBar } from "./components/ShareBar.tsx";
 import { SmokeCanvas } from "./components/SmokeCanvas.tsx";
-import { SniffPanel } from "./components/SniffPanel.tsx";
 import { useDebounce } from "./hooks/useDebounce.ts";
 
 const REPO = "https://github.com/karamage/niou";
@@ -56,7 +55,7 @@ export function App() {
 					</p>
 					<ul className="badges">
 						<li>静的解析 10 ルール</li>
-						<li>Workers AI で二次審査</li>
+						<li>本文はブラウザから出ない</li>
 						<li>結果カードを 1 秒で共有</li>
 					</ul>
 				</header>
@@ -108,13 +107,12 @@ export function App() {
 						onClearFilter={() => setFilter(null)}
 					/>
 
-					<SniffPanel text={debounced} disabled={report.tooShort} />
 					<ShareBar report={report} />
 				</main>
 
 				<footer>
 					<p className="footer-line">
-						NIOU は Cloudflare Workers の上で Hono + React + Workers AI で動いています。
+						NIOU は Cloudflare Workers の上で Hono + React で動いています。
 						<a href={REPO} target="_blank" rel="noreferrer">
 							ソースコード
 						</a>

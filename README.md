@@ -6,7 +6,7 @@
 
 <p align="center"><strong>その文章、AI臭くない？</strong><br />
 日本語の文章を貼るだけで「AI が書いた感」の出る箇所を炙り出し、臭気指数を出す。<br />
-Cloudflare Workers の上で、Hono + React + Workers AI で動く。</p>
+Cloudflare Workers の上で、Hono + React で動く。</p>
 
 <p align="center">
   <a href="#使い方">使い方</a> ·
@@ -22,7 +22,6 @@ Cloudflare Workers の上で、Hono + React + Workers AI で動く。</p>
 - 貼った瞬間に解析。指摘箇所がエディタ上でルール別に色付けされ、クリックすると該当箇所に飛ぶ
 - 臭気指数（0〜100）と 5 段階の臭気レベル（無臭 🌿 → 激臭 ☠️）。指数が上がるほど画面の煙が濃くなる
 - 本文はブラウザから出ない。静的解析はすべてクライアント側で完結する
-- ボタン 1 つで Workers AI（Qwen3 30B）が二次審査。静的解析では拾えない「失敗談の有無」「見出し直後が結論か」を読み、言い換え案を出す
 - 結果カード（OG 画像）を Worker 上で生成。X に貼ると 1200×630 のカードが出る。共有 URL にはスコアと指摘ルールだけが入り、本文は含まれない
 - 同じエンジンを CLI でも使える。CI で臭気指数が閾値を超えたら落とせる
 
@@ -51,11 +50,8 @@ R4 / R6 / R7 は文書全体を見るルールなので、400 字未満では評
 
 ```sh
 bun install
-bun run dev        # http://localhost:5173  静的解析と OG 画像はこれで動く
-bun run dev:ai     # Workers AI も使う（wrangler login 済みであること）
+bun run dev        # http://localhost:5173
 ```
-
-Workers AI はローカルで動かないので、`bun run dev` では AI 二次審査だけ「鼻が詰まりました」と返る。`bun run dev:ai` はリモートバインディングを有効にして本物のモデルを叩く。
 
 ```sh
 bun test           # ルールごとのユニットテストと Worker のスモークテスト
@@ -86,7 +82,6 @@ bun run cli draft.md --json
 ## API
 
 `POST /api/analyze` に `{ "text": "..." }` を送ると、ブラウザと同じレポートが JSON で返る。
-`POST /api/sniff` は Workers AI の二次審査。IP あたり 60 秒に 5 回まで。
 
 ## デプロイ
 
@@ -95,7 +90,7 @@ bunx wrangler login
 bun run deploy
 ```
 
-必要なのは Workers AI バインディングと Rate Limiting バインディングだけで、どちらも `wrangler.jsonc` に書いてある。KV や D1 は使わない。
+バインディングは静的アセットだけ。KV も D1 も AI も使わないので、Workers の無料プランでそのまま動く。
 
 ## 構成
 
@@ -113,7 +108,7 @@ src/
 
 ## 注意
 
-判定はヒューリスティックです。人間が書いた名文も普通に激臭判定されます。AI 二次審査の確率も目安で、同じ文章でも数点は揺れます。
+判定はヒューリスティックです。人間が書いた名文も普通に激臭判定されます。
 
 ## License
 

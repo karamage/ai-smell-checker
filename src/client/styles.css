@@ -606,132 +606,6 @@ button:disabled,
 	color: color-mix(in oklab, var(--c) 70%, var(--fg));
 }
 
-/* ---------- sniff ---------- */
-.sniff-btn {
-	font-size: 17px;
-	padding: 14px 26px;
-}
-
-.sniffing::after {
-	content: "…";
-	display: inline-block;
-	width: 1.2em;
-	text-align: left;
-	animation: dots 1.2s steps(4) infinite;
-}
-
-@keyframes dots {
-	0% {
-		clip-path: inset(0 100% 0 0);
-	}
-	100% {
-		clip-path: inset(0 -10% 0 0);
-	}
-}
-
-.toast {
-	display: inline-block;
-	margin: 12px 0 0;
-	padding: 10px 16px;
-	border-radius: 12px;
-	background: color-mix(in oklab, #ff3b6b 18%, var(--panel));
-	border: 1px solid #ff3b6b;
-}
-
-.sniff-result {
-	margin-top: 18px;
-	border: 1px solid var(--line);
-	border-radius: 18px;
-	padding: 20px 22px;
-	background: color-mix(in oklab, var(--panel) 90%, transparent);
-	display: grid;
-	gap: 14px;
-}
-
-.sniff-prob {
-	display: flex;
-	align-items: baseline;
-	gap: 12px;
-}
-
-.sniff-prob-num {
-	font-family: var(--display);
-	font-size: 56px;
-	line-height: 1;
-	color: var(--c);
-	text-shadow: 0 0 30px color-mix(in oklab, var(--c) 50%, transparent);
-}
-
-.sniff-prob-label {
-	color: var(--muted);
-}
-
-.sniff-verdict {
-	margin: 0;
-	font-size: 20px;
-	font-weight: 700;
-}
-
-.sniff-grid {
-	margin: 0;
-	display: grid;
-	gap: 10px;
-}
-
-.sniff-grid dt {
-	color: var(--muted);
-	font-size: 12px;
-	letter-spacing: 0.08em;
-}
-
-.sniff-grid dd {
-	margin: 2px 0 0;
-}
-
-.ok {
-	color: #3dffa0;
-	font-weight: 700;
-}
-
-.ng {
-	color: #ff3b6b;
-	font-weight: 700;
-}
-
-.lead-list {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
-
-.rewrites h3 {
-	font-size: 14px;
-	color: var(--muted);
-	letter-spacing: 0.08em;
-	margin-bottom: 8px;
-}
-
-.rewrite {
-	border-left: 3px solid var(--accent);
-	padding: 4px 0 4px 14px;
-	margin-bottom: 12px;
-}
-
-.rewrite-before {
-	color: var(--muted);
-	text-decoration: line-through;
-	text-decoration-color: #ff3b6b;
-}
-
-.rewrite-after {
-	font-weight: 700;
-}
-
-.rewrite-why {
-	font-size: 12px;
-	color: var(--accent);
-}
-
 /* ---------- share ---------- */
 .share-body {
 	display: grid;
@@ -816,8 +690,7 @@ footer a {
 
 @media (prefers-reduced-motion: reduce) {
 	.logo-nose,
-	.hl-active,
-	.sniffing::after {
+	.hl-active {
 		animation: none;
 	}
 }
