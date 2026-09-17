@@ -9,7 +9,7 @@ import { ShareBar } from "./components/ShareBar.tsx";
 import { SmokeCanvas } from "./components/SmokeCanvas.tsx";
 import { useDebounce } from "./hooks/useDebounce.ts";
 
-const REPO = "https://github.com/karamage/niou";
+const REPO = "https://github.com/karamage/ai-smell-checker";
 
 export function App() {
 	const [text, setText] = useState("");
