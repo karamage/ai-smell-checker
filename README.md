@@ -5,6 +5,11 @@
 Cloudflare Workers の上で、Hono + React で動く。</p>
 
 <p align="center">
+  <a href="https://niou.karamage.workers.dev"><strong>👉 https://niou.karamage.workers.dev で試す</strong></a>
+</p>
+
+<p align="center">
+  <a href="https://niou.karamage.workers.dev"><img src="https://img.shields.io/badge/live-niou.karamage.workers.dev-b6ff3b?style=flat-square&logo=cloudflare&logoColor=black" alt="Live" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-b6ff3b?style=flat-square" alt="MIT License" /></a>
   <img src="https://img.shields.io/badge/Cloudflare-Workers-F38020?style=flat-square&logo=cloudflare&logoColor=white" alt="Cloudflare Workers" />
   <img src="https://img.shields.io/badge/Hono-4-E36002?style=flat-square&logo=hono&logoColor=white" alt="Hono" />
@@ -64,6 +69,10 @@ R4 / R6 / R7 / R10 は文書全体を見るルールなので、400 字未満で
 ルールはそれぞれ 1 ファイル（`src/core/rules/r*.ts`）で、辞書は `src/core/dict/` にある。語を足したいときはそこを触るだけでいい。
 
 ## 使い方
+
+ブラウザで https://niou.karamage.workers.dev を開き、文章を貼るだけ。インストールも登録も要らない。
+
+手元で動かすなら:
 
 ```sh
 bun install
