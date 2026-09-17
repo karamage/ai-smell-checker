@@ -24,7 +24,7 @@ export const BANNED: BannedEntry[] = [
 		hint: "読者に感想を求める締めは削る。言いたいことを言い切って終える",
 	},
 	{ pattern: "いかがでしょうか", severity: H, hint: "問いかけで逃げない。自分の判断を書く" },
-	{ pattern: "結論から言うと", severity: H, hint: "予告せず、いきなり結論を書く" },
+	{ pattern: /結論から(言|い)(う|え|っ)/, severity: H, hint: "予告せず、いきなり結論を書く" },
 	{ pattern: "結論として", severity: H, hint: "「結論として」を消して結論だけ残す" },
 	{ pattern: "まとめると", severity: H, hint: "読めば分かることを繰り返さない" },
 	{ pattern: "総じて", severity: H, hint: "総括の型。具体的な評価に置き換える" },
@@ -105,7 +105,7 @@ export const BANNED: BannedEntry[] = [
 	{ pattern: /ポイントは/, severity: L, hint: "「ポイントは」の前置きは要らない" },
 	{ pattern: "まさしく", severity: M, hint: "強調語を削る" },
 	{ pattern: "不可欠", severity: M, hint: "何がどう不可欠かを書かないと空語" },
-	{ pattern: "核心的", severity: M, hint: "空虚な形容。具体を書く" },
+	{ pattern: "核心", severity: M, hint: "「核心」は中身を言わない空語。何がどう肝心なのか書く" },
 	{ pattern: /鍵とな(る|ります)/, severity: M, hint: "「鍵となる」は AI 好みの空語" },
 	{ pattern: "根本的な", severity: M, hint: "何がどう根本的なのか具体に" },
 	{ pattern: /多角的|包括的|総合的/, severity: M, hint: "どの角度から見たのかを書く" },
@@ -151,4 +151,35 @@ export const BANNED: BannedEntry[] = [
 	{ pattern: /驚くべきことに|興味深いことに/, severity: M, hint: "驚きは事実の落差で伝える" },
 	{ pattern: /なんですよね/, severity: L, hint: "共感演出の多用。事実を書く" },
 	{ pattern: /一助となれば/, severity: H, hint: "定型の締め。削る" },
+	// 区切り・記号・枕詞
+	{
+		pattern: /-{3,}|—+|―+|─{2,}/,
+		severity: H,
+		hint: "ダッシュ区切りは AI 特有。段落を分けるか、読点や「…」で繋ぐ",
+	},
+	{
+		pattern: /✅\uFE0F?/,
+		severity: H,
+		hint: "チェック絵文字の見出し・箇条書きは AI の定番。文字で書く",
+	},
+	{
+		pattern: /正直(に)?言(う|え|っ)/,
+		severity: H,
+		hint: "「正直言うと」の枕詞は定型化しやすい。本音は前置きなしで書く",
+	},
+	{
+		pattern: /先に白状/,
+		severity: H,
+		hint: "「先に白状すると」は結論の予告と同じ型。白状する中身から書く",
+	},
+	{
+		pattern: /効(く|いた|いて|き)/,
+		severity: M,
+		hint: "「効く」は何がどう良くなったかを言わない。数字か具体で書く",
+	},
+	{
+		pattern: /気づき|気付き/,
+		severity: M,
+		hint: "「気づき」でまとめず、気づいた内容そのものを書く",
+	},
 ];

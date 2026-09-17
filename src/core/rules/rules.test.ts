@@ -21,6 +21,22 @@ describe("R0 禁止ワード", () => {
 	test("何もなければ空", () => {
 		expect(run("R0", "昨日ラーメンを食べた。うまかった。")).toHaveLength(0);
 	});
+	test("追加の禁止ワード（ダッシュ、✅、枕詞、効く、気づき、核心）", () => {
+		const text =
+			"前段。\n\n---\n\n正直言うと、結論から言えば効いた。先に白状すると気づきがあった。核心はここだ。✅️ 完了";
+		const words = run("R0", text).map((x) => text.slice(x.range?.start, x.range?.end));
+		expect(words).toContain("---");
+		expect(words).toContain("正直言う");
+		expect(words).toContain("結論から言え");
+		expect(words).toContain("効いた");
+		expect(words).toContain("先に白状");
+		expect(words).toContain("気づき");
+		expect(words).toContain("核心");
+		expect(words.some((w) => w.startsWith("✅"))).toBe(true);
+	});
+	test("「効果」や「核心的」以外の語は誤検知しない", () => {
+		expect(run("R0", "効果を測った。")).toHaveLength(0);
+	});
 });
 
 describe("R1 です・ます連打", () => {
