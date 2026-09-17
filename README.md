@@ -73,7 +73,12 @@ R4 / R6 / R7 / R10 は文書全体を見るルールなので、400 字未満で
 
 ブラウザで https://niou.karamage.workers.dev を開き、文章を貼るだけ。インストールも登録も要らない。
 
-手元で動かすなら:
+### AI に直させる
+
+- Web: 指摘リストの下に「AI に直させる」パネル。プロンプトのコピー、ChatGPT で開く、Claude で開く（URL に載せて新規チャットに流し込む）の 3 つ。6,000 字を超える場合はリンクを無効にしてコピーを促します。
+- CLI: `bun run cli draft.md --prompt | pbcopy`
+
+### 手元で動かす
 
 ```sh
 bun install
