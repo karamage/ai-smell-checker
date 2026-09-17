@@ -29,7 +29,6 @@ export const FAILURE_WORDS: RegExp[] = [
 	/謎/,
 	/不明/,
 	/微妙/,
-	/正直/,
 	/困(っ|り)/,
 	/しんど/,
 	/つらか|辛か/,
