@@ -5,6 +5,7 @@ import { Checklist } from "./components/Checklist.tsx";
 import { Editor } from "./components/Editor.tsx";
 import { Findings } from "./components/Findings.tsx";
 import { Meter } from "./components/Meter.tsx";
+import { PromptPanel } from "./components/PromptPanel.tsx";
 import { ShareBar } from "./components/ShareBar.tsx";
 import { SmokeCanvas } from "./components/SmokeCanvas.tsx";
 import { useDebounce } from "./hooks/useDebounce.ts";
@@ -57,6 +58,7 @@ export function App() {
 						<li>静的解析 10 ルール</li>
 						<li>本文はブラウザから出ない</li>
 						<li>結果カードを 1 秒で共有</li>
+						<li>AI に直させる制約付きプロンプト</li>
 					</ul>
 				</header>
 
@@ -107,6 +109,7 @@ export function App() {
 						onClearFilter={() => setFilter(null)}
 					/>
 
+					<PromptPanel text={debounced} report={report} />
 					<ShareBar report={report} />
 				</main>
 

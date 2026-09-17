@@ -9,6 +9,7 @@ import { levelOf, scoreOf } from "./score.ts";
 import { buildContext } from "./segment.ts";
 import type { Finding, Report, RuleId } from "./types.ts";
 
+export { buildPrompt } from "./prompt.ts";
 export { MIN_LENGTH, RULE_IDS, RULES } from "./rules/meta.ts";
 export { LEVELS, levelOf, scoreOf } from "./score.ts";
 export { decodeShare, encodeShare, type ShareData } from "./share.ts";

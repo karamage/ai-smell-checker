@@ -1,8 +1,9 @@
 #!/usr/bin/env bun
-import { analyze, RULE_IDS, RULES } from "./core/index.ts";
+import { analyze, buildPrompt, RULE_IDS, RULES } from "./core/index.ts";
 
 const args = process.argv.slice(2);
 const json = args.includes("--json");
+const wantPrompt = args.includes("--prompt");
 const thresholdIdx = args.indexOf("--threshold");
 const threshold = thresholdIdx >= 0 ? Number(args[thresholdIdx + 1]) : Number.NaN;
 const files = args.filter((a, i) => !a.startsWith("--") && i !== thresholdIdx + 1);
@@ -15,6 +16,7 @@ if (args.includes("--help") || args.includes("-h")) {
   cat draft.md | bun run cli
 
   --json          レポートを JSON で出力
+  --prompt        指摘を元に、LLM に書き直しを頼むプロンプトを出力
   --threshold N   臭気指数が N 以上のファイルがあれば exit 1（CI 向け）`);
 	process.exit(0);
 }
@@ -41,6 +43,11 @@ const reports = inputs.map(({ name, text }) => ({ name, report: analyze(text) })
 
 if (json) {
 	console.log(JSON.stringify(reports.length === 1 ? reports[0]?.report : reports, null, 2));
+} else if (wantPrompt) {
+	for (const [i, { name, report }] of reports.entries()) {
+		if (reports.length > 1) console.log(`${i > 0 ? "\n\n" : ""}# ${name}\n`);
+		console.log(buildPrompt(inputs[i]?.text ?? "", report));
+	}
 } else {
 	for (const { name, report } of reports) {
 		const lv = report.level;
