@@ -1,0 +1,13 @@
+{
+	"$schema": "./node_modules/oxlint/configuration_schema.json",
+	"plugins": ["typescript", "react", "unicorn", "oxc"],
+	"categories": { "correctness": "error", "suspicious": "warn", "perf": "warn" },
+	"env": { "browser": true, "es2024": true },
+	"ignorePatterns": ["dist", "node_modules", ".wrangler", "worker-configuration.d.ts"],
+	"rules": {
+		"no-unused-vars": "warn",
+		"react/react-in-jsx-scope": "off",
+		"react/no-array-index-key": "off",
+		"unicorn/consistent-function-scoping": "off"
+	}
+}
