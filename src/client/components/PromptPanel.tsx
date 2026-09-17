@@ -26,7 +26,7 @@ export function PromptPanel({ text, report }: { text: string; report: Report }) 
 			<div className="section-head">
 				<h2>AI に直させる</h2>
 				<p className="muted">
-					指摘をそのまま渡すと、言い換えた先で別の常套句が湧く。指摘と「入れてはいけない表現」をセットにした制約付きプロンプトを作った。
+					指摘をそのまま渡すと、言い換えた先で別のAI構文が発生してしまうので、指摘と「入れてはいけない表現」をセットにした制約付きプロンプトが以下
 				</p>
 			</div>
 			<textarea
