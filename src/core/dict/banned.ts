@@ -221,7 +221,6 @@ export const BANNED: BannedEntry[] = [
 		severity: H,
 		hint: "読者に呼びかけない。伝えたいことを直接書く",
 	},
-	{ pattern: "羅針盤", severity: H, hint: "AI 好みの比喩。何を決める基準なのかを書く" },
 	{ pattern: "受け皿", severity: M, hint: "比喩をやめて、何がどこに入るのかを書く" },
 	{
 		pattern: /種を(まく|蒔く|撒く)/,

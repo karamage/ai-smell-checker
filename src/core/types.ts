@@ -10,7 +10,8 @@ export type RuleId =
 	| "R8"
 	| "R9"
 	| "R10"
-	| "R11";
+	| "R11"
+	| "R12";
 
 export type Severity = "high" | "mid" | "low";
 

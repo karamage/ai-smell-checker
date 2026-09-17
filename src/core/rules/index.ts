@@ -11,6 +11,7 @@ import { r8Colloquial } from "./r8-colloquial.ts";
 import { r9HeadingLead } from "./r9-heading-lead.ts";
 import { r10Rhythm } from "./r10-rhythm.ts";
 import { r11Syntax } from "./r11-syntax.ts";
+import { r12Metaphor } from "./r12-metaphor.ts";
 
 export const RULE_IMPL: Record<RuleId, Rule> = {
 	R0: r0Banned,
@@ -25,6 +26,7 @@ export const RULE_IMPL: Record<RuleId, Rule> = {
 	R9: r9HeadingLead,
 	R10: r10Rhythm,
 	R11: r11Syntax,
+	R12: r12Metaphor,
 };
 
 export * from "./meta.ts";

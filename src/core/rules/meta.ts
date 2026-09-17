@@ -73,6 +73,12 @@ export const RULES: Record<RuleId, RuleMeta> = {
 		checklist: "「Aではなく、Bである」「Aであり、Bであり」「Aすることで、Bできる」型の構文がないか",
 		color: "#ff9a9a",
 	},
+	R12: {
+		id: "R12",
+		name: "変な比喩",
+		checklist: "地図・土台・柱・潤滑油・エンジンのような比喩に頼っていないか",
+		color: "#f7b267",
+	},
 };
 
 export const RULE_IDS: RuleId[] = [
@@ -88,6 +94,7 @@ export const RULE_IDS: RuleId[] = [
 	"R9",
 	"R10",
 	"R11",
+	"R12",
 ];
 
 /** 文書全体を見るルール。短い文書では評価しない */
