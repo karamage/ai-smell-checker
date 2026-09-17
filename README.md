@@ -1,12 +1,26 @@
-<p align="center">
-  <img src="docs/og.png" alt="NIOU 結果カード" width="640" />
-</p>
-
 <h1 align="center">👃 NIOU</h1>
 
 <p align="center"><strong>その文章、AI臭くない？</strong><br />
 日本語の文章を貼るだけで「AI が書いた感」の出る箇所を炙り出し、臭気指数を出す。<br />
 Cloudflare Workers の上で、Hono + React で動く。</p>
+
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-b6ff3b?style=flat-square" alt="MIT License" /></a>
+  <img src="https://img.shields.io/badge/Cloudflare-Workers-F38020?style=flat-square&logo=cloudflare&logoColor=white" alt="Cloudflare Workers" />
+  <img src="https://img.shields.io/badge/Hono-4-E36002?style=flat-square&logo=hono&logoColor=white" alt="Hono" />
+  <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black" alt="React 19" />
+  <img src="https://img.shields.io/badge/TypeScript-7-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript 7" />
+  <img src="https://img.shields.io/badge/Bun-1.3-fbf0df?style=flat-square&logo=bun&logoColor=black" alt="Bun" />
+  <img src="https://img.shields.io/badge/rules-13-ff3b6b?style=flat-square" alt="13 rules" />
+</p>
+
+<p align="center">
+  <img src="docs/demo.gif" alt="AI 臭いサンプルを貼ると、指摘箇所が色付けされ臭気指数 100 の激臭判定になるデモ" width="800" />
+</p>
+
+<p align="center">
+  <img src="docs/og.png" alt="NIOU 結果カード" width="480" />
+</p>
 
 <p align="center">
   <a href="#使い方">使い方</a> ·
